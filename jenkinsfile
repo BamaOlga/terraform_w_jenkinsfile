@@ -1,42 +1,10 @@
-pipeline {
+eline {
     agent any
 
-    environment {
-        TERRAFORM_VERSION = '1.0.11'
-    }
-
-    stages {
-        stage('List Workspace Files') {
-            steps {
-                sh 'ls -la'
-            }
-        }
-        stage('List Terraform Directory Files') {
-            steps {
-                dir('~/Desktop/terraform-project') {
-                    sh 'ls -la'
-                }
-            }
-        }
-
-        stage('Install Terraform') {
-            steps {
-                script {
-                    def terraformExists = sh(script: 'terraform --version', returnStatus: true) == 0
-                    if (!terraformExists) {
-                        sh """
-                        wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-                        unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-                        sudo mv terraform /usr/local/bin/
-                        """
-                    }
-                }
-            }
-        }
-
+   Stages {
         stage('Terraform Init') {
             steps {
-                dir('~/Desktop/terraform-project/.tf') {
+                {
                     sh 'terraform init'
                 }
             }
@@ -44,8 +12,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                dir('~/Desktop/terraform-project/.tf') {
-                    sh 'ls -la'
+                {
                     sh 'terraform plan'
                 }
             }
@@ -53,8 +20,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('~/Desktop/terraform-project/.tf') {
-                    sh 'ls -la'
+                {
                     sh 'terraform apply -auto-approve'
                 }
             }
@@ -68,4 +34,3 @@ pipeline {
         }
     }
 }
-
