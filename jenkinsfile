@@ -8,14 +8,12 @@ pipeline {
     stages {
         stage('List Workspace Files') {
             steps {
-                // List all files in the workspace
                 sh 'ls -la'
             }
         }
         stage('List Terraform Directory Files') {
             steps {
-                // List all files in the Terraform directory
-                dir('terraform-project') {  // Adjust this path as needed
+                dir('terraform-project') {
                     sh 'ls -la'
                 }
             }
@@ -38,7 +36,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('terraform-project') {  // Adjust this path as needed
+                dir('terraform-project') {
                     sh 'terraform init'
                 }
             }
@@ -46,15 +44,23 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                dir('terraform-project') {  // Adjust this path as needed
+                dir('terraform-project') {
                     sh 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Plan with Destroy') {
+            steps {
+                dir('terraform-project') {
+                    sh 'terraform plan -destroy'
                 }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                dir('terraform-project') {  // Adjust this path as needed
+                dir('terraform-project') {
                     sh 'terraform apply -auto-approve'
                 }
             }
@@ -68,3 +74,4 @@ pipeline {
         }
     }
 }
+
