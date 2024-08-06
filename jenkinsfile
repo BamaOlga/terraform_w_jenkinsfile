@@ -13,7 +13,7 @@ pipeline {
         }
         stage('List Terraform Directory Files') {
             steps {
-                dir('terraform-project') {
+                dir('~/Desktop/terraform-project') {
                     sh 'ls -la'
                 }
             }
@@ -36,7 +36,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('terraform-project/.tf') {
+                dir('~/Desktop/terraform-project/.tf') {
                     sh 'terraform init'
                 }
             }
@@ -44,7 +44,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                dir('terraform-project/.tf') {
+                dir('~/Desktop/terraform-project/.tf') {
                     sh 'terraform plan'
                 }
             }
@@ -52,7 +52,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('terraform-project/.tf') {
+                dir('~/Desktop/terraform-project/.tf') {
                     sh 'terraform apply -auto-approve'
                 }
             }
