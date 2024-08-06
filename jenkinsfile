@@ -37,7 +37,6 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('~/Desktop/terraform-project/.tf') {
-                    sh 'ls -la'
                     sh 'terraform init'
                 }
             }
