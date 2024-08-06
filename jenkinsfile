@@ -48,7 +48,7 @@ pipeline {
 
     post {
         always {
-            echo "Terraform configuration files found."
+            echo'.tf files'
             cleanWs()
         }
     }
