@@ -6,6 +6,21 @@ pipeline {
     }
 
     stages {
+        stage('List Workspace Files') {
+            steps {
+                // List all files in the workspace
+                sh 'ls -la'
+            }
+        }
+        stage('List Terraform Directory Files') {
+            steps {
+                // List all files in the Terraform directory
+                dir('terraform-project') {  // Adjust this path as needed
+                    sh 'ls -la'
+                }
+            }
+        }
+
         stage('Install Terraform') {
             steps {
                 script {
@@ -23,7 +38,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('~/Desktop/terraform-project/') {
+                dir('terraform-project') {  // Adjust this path as needed
                     sh 'terraform init'
                 }
             }
@@ -31,7 +46,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-                dir('~/Desktop/terraform-project/.tf') {
+                dir('terraform-project') {  // Adjust this path as needed
                     sh 'terraform plan'
                 }
             }
@@ -39,7 +54,7 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('~/Desktop/terraform-project/.tf') {
+                dir('terraform-project') {  // Adjust this path as needed
                     sh 'terraform apply -auto-approve'
                 }
             }
@@ -48,7 +63,7 @@ pipeline {
 
     post {
         always {
-            echo'.tf files'
+            echo 'Cleaning workspace...'
             cleanWs()
         }
     }
