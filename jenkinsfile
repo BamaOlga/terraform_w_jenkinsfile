@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Sleep 2mins') {
             steps {
-                // Pause the pipeline for 2 minutes
+                // Pause the pipeline for 5 minutes
                 sleep time: 2, unit: 'MINUTES'
             }
         }
